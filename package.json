@@ -8,7 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "deploy-mailing-list": "gh-pages -d build"
+    "deploy-mailing-list": "gh-pages -d dist"
   },
   "homepage": "https://Duowork.github.io/writestream-web",
   "dependencies": {
