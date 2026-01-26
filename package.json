@@ -10,7 +10,7 @@
     "preview": "vite preview",
     "deploy-mailing-list": "gh-pages -d dist"
   },
-  "homepage": "https://Duowork.github.io/writestream-web",
+  "homepage": "https://writestream.online",
   "dependencies": {
     "@tailwindcss/vite": "^4.1.18",
     "class-variance-authority": "^0.7.1",
