@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Writestream - Write Once. Post Everywhere.</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #2d3748;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 640px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 40px 40px;
+            text-align: center;
+        }
+        
+        .logo {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+        
+        .tagline {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            opacity: 0.95;
+        }
+        
+        .subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .problem {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 20px;
+            margin-bottom: 32px;
+            border-radius: 4px;
+        }
+        
+        .problem h3 {
+            color: #92400e;
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+        
+        .problem p {
+            color: #78350f;
+            font-size: 15px;
+        }
+        
+        .solution {
+            margin-bottom: 32px;
+        }
+        
+        .solution h3 {
+            color: #1f2937;
+            font-size: 20px;
+            margin-bottom: 16px;
+        }
+        
+        .features {
+            list-style: none;
+            margin-bottom: 32px;
+        }
+        
+        .features li {
+            padding: 12px 0;
+            padding-left: 32px;
+            position: relative;
+            font-size: 16px;
+        }
+        
+        .features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+            font-size: 20px;
+        }
+        
+        .cta-section {
+            background: #f9fafb;
+            padding: 32px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .cta-section h3 {
+            font-size: 22px;
+            margin-bottom: 12px;
+            color: #1f2937;
+        }
+        
+        .cta-section p {
+            color: #6b7280;
+            margin-bottom: 24px;
+            font-size: 15px;
+        }
+        
+        .form-group {
+            margin-bottom: 16px;
+            text-align: left;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #374151;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 16px 48px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .social-proof {
+            margin-top: 32px;
+            text-align: center;
+            color: #6b7280;
+            font-size: 14px;
+        }
+        
+        .platforms {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+        
+        .platform-badge {
+            background: #e5e7eb;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            color: #4b5563;
+            font-weight: 500;
+        }
+        
+        @media (max-width: 640px) {
+            .hero {
+                padding: 40px 24px 24px;
+            }
+            
+            .content {
+                padding: 24px;
+            }
+            
+            .cta-section {
+                padding: 24px;
+            }
+            
+            .tagline {
+                font-size: 20px;
+            }
+            
+            .subtitle {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero">
+            <div class="logo">Writestream</div>
+            <div class="tagline">Write Once. Post Everywhere.</div>
+            <div class="subtitle">Stop wasting hours copy-pasting content across platforms</div>
+        </div>
+        
+        <div class="content">
+            <div class="problem">
+                <h3>You're doing too much manual work</h3>
+                <p>You write great content. But then you spend hours reformatting for LinkedIn, Twitter, Medium, Substack, and Dev.to. Different character limits. Different formats. Different audiences. Same exhausting routine.</p>
+            </div>
+            
+            <div class="solution">
+                <h3>Writestream changes everything</h3>
+                <ul class="features">
+                    <li>Write your content once in a clean, distraction-free editor</li>
+                    <li>Post to all your platforms with a single click</li>
+                    <li>Smart formatting adapts to each platform automatically</li>
+                    <li>Never forget where you've posted or what performed well</li>
+                    <li>Get back hours every week to focus on creating</li>
+                </ul>
+            </div>
+            
+            <div class="cta-section">
+                <h3>Be the first to know when we launch</h3>
+                <p>Join our early access list and help shape Writestream. Plus, get exclusive launch pricing.</p>
+                
+                <form id="signup-form">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" placeholder="Your name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="you@example.com" required>
+                    </div>
+                    
+                    <button type="submit" class="btn">Get Early Access</button>
+                </form>
+                
+                <div class="social-proof">
+                    <p>Works with your favorite platforms:</p>
+                    <div class="platforms">
+                        <span class="platform-badge">LinkedIn</span>
+                        <span class="platform-badge">Twitter</span>
+                        <span class="platform-badge">Medium</span>
+                        <span class="platform-badge">Substack</span>
+                        <span class="platform-badge">Dev.to</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById('signup-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            
+            // Replace this with your actual form submission logic
+            // For now, we'll just show a success message
+            alert('Thanks for joining, ' + name + '! Check your email for the survey link.');
+            
+            // Reset form
+            this.reset();
+            
+            // In production, you'd redirect to your survey or send the survey link via email
+            // Example: window.location.href = 'https://yoursurvey.com?email=' + encodeURIComponent(email);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Writestream - Design System & Interface</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      /* Colors */
+      --color-background: #FAFBFC;
+      --color-surface: #FFFFFF;
+      --color-border: #E4E7EB;
+      --color-text-primary: #1F2937;
+      --color-text-secondary: #6B7280;
+
+      --color-teal-light: #5EEAD4;
+      --color-teal-base: #14B8A6;
+      --color-teal-dark: #0F766E;
+
+      --color-success: #10B981;
+      --color-warning: #F59E0B;
+      --color-error: #EF4444;
+
+      /* Typography */
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-serif: 'Georgia', 'Iowan Old Style', serif;
+
+      /* Spacing */
+      --spacing-xs: 8px;
+      --spacing-sm: 16px;
+      --spacing-md: 24px;
+      --spacing-lg: 32px;
+      --spacing-xl: 48px;
+      --spacing-xxl: 64px;
+
+      /* Transitions */
+      --duration-fast: 200ms;
+      --duration-mode-transition: 350ms;
+      --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--color-background);
+      color: var(--color-text-primary);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: var(--spacing-xl) var(--spacing-md);
+    }
+
+    /* Typography */
+    h1 {
+      font-size: 48px;
+      font-weight: 600;
+      line-height: 1.2;
+      color: var(--color-text-primary);
+      margin-bottom: 16px;
+    }
+
+    h2 {
+      font-size: 30px;
+      font-weight: 500;
+      line-height: 1.2;
+      color: var(--color-text-primary);
+      margin-bottom: var(--spacing-md);
+    }
+
+    h3 {
+      font-size: 24px;
+      font-weight: 500;
+      line-height: 1.2;
+      color: var(--color-text-primary);
+      margin-bottom: var(--spacing-sm);
+    }
+
+    h4 {
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 1.2;
+      color: var(--color-text-primary);
+    }
+
+    p {
+      font-size: 16px;
+      line-height: 1.5;
+      color: var(--color-text-secondary);
+    }
+
+    .section {
+      margin-bottom: var(--spacing-xxl);
+    }
+
+    /* Header */
+    .header {
+      margin-bottom: var(--spacing-xxl);
+    }
+
+    .header p {
+      font-size: 20px;
+      max-width: 600px;
+    }
+
+    /* Color Palette Grid */
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: var(--spacing-sm);
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .color-item {
+      text-align: left;
+    }
+
+    .color-swatch {
+      height: 80px;
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      margin-bottom: 8px;
+    }
+
+    .color-name {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-text-primary);
+      margin-bottom: 2px;
+    }
+
+    .color-value {
+      font-size: 12px;
+      color: var(--color-text-secondary);
+      font-family: monospace;
+    }
+
+    /* Typography Showcase */
+    .type-showcase {
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      padding: var(--spacing-md);
+    }
+
+    .type-item {
+      margin-bottom: var(--spacing-md);
+    }
+
+    .type-meta {
+      font-size: 12px;
+      color: var(--color-text-secondary);
+      margin-top: 4px;
+    }
+
+    /* Spacing Grid */
+    .spacing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--spacing-sm);
+    }
+
+    .spacing-card {
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      padding: var(--spacing-sm);
+    }
+
+    .spacing-name {
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--color-text-primary);
+      margin-bottom: 4px;
+    }
+
+    .spacing-value {
+      font-size: 16px;
+      color: var(--color-teal-base);
+      font-family: monospace;
+      margin-bottom: 8px;
+    }
+
+    .spacing-use {
+      font-size: 14px;
+      color: var(--color-text-secondary);
+      line-height: 1.5;
+    }
+
+    /* Interactive Demo */
+    .demo-container {
+      background-color: var(--color-background);
+      min-height: 600px;
+      border-radius: 12px;
+      border: 1px solid var(--color-border);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      margin-bottom: var(--spacing-md);
+    }
+
+    .demo-nav {
+      background-color: var(--color-surface);
+      border-bottom: 1px solid var(--color-border);
+      padding: var(--spacing-sm) var(--spacing-md);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .demo-logo {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--color-teal-base);
+    }
+
+    .btn-post {
+      background-color: rgba(20, 184, 166, 0.4);
+      color: var(--color-teal-base);
+      border: none;
+      padding: 8px 24px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all var(--duration-mode-transition) var(--ease-standard);
+    }
+
+    .btn-post.active {
+      background-color: var(--color-teal-base);
+      color: white;
+    }
+
+    .btn-post.active:hover {
+      background-color: var(--color-teal-dark);
+    }
+
+    .demo-content {
+      display: flex;
+      flex: 1;
+      position: relative;
+    }
+
+    .editor {
+      flex: 1;
+      padding: var(--spacing-xl) 96px;
+      max-width: 100%;
+      transition: all var(--duration-mode-transition) var(--ease-standard);
+    }
+
+    .editor.with-sidebar {
+      padding: var(--spacing-xl) var(--spacing-lg);
+      max-width: 65%;
+    }
+
+    .editor-text {
+      font-family: var(--font-serif);
+      font-size: 16px;
+      line-height: 1.75;
+      color: var(--color-text-primary);
+    }
+
+    .editor-title {
+      font-size: 38px;
+      font-weight: 600;
+      line-height: 1.2;
+      margin-bottom: var(--spacing-md);
+      font-family: var(--font-sans);
+    }
+
+    .editor-paragraph {
+      margin-bottom: var(--spacing-md);
+    }
+
+    .sidebar {
+      width: 0;
+      background-color: var(--color-surface);
+      border-left: none;
+      overflow: hidden;
+      transition: all var(--duration-mode-transition) var(--ease-standard);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar.open {
+      width: 380px;
+      border-left: 1px solid var(--color-border);
+    }
+
+    .sidebar-content {
+      padding: var(--spacing-md);
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .sidebar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--spacing-md);
+    }
+
+    .sidebar-title {
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--color-text-primary);
+    }
+
+    .btn-minimize {
+      background: none;
+      border: none;
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      font-size: 14px;
+      padding: 4px 8px;
+    }
+
+    .btn-minimize:hover {
+      color: var(--color-text-primary);
+    }
+
+    .platform-grid {
+      display: grid;
+      gap: var(--spacing-sm);
+    }
+
+    .platform-card {
+      position: relative;
+      border: 2px solid var(--color-border);
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all var(--duration-fast) ease;
+      background-color: var(--color-surface);
+    }
+
+    .platform-card:hover {
+      border-color: var(--color-text-secondary);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+    }
+
+    .platform-card.selected {
+      border-color: var(--color-teal-base);
+      background-color: #F0FDFA;
+      box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.1);
+    }
+
+    .platform-preview {
+      padding: var(--spacing-sm);
+      background-color: var(--color-background);
+      border-bottom: 1px solid var(--color-border);
+      font-size: 14px;
+      color: var(--color-text-secondary);
+      line-height: 1.5;
+      font-family: var(--font-serif);
+    }
+
+    .platform-info {
+      padding: 12px var(--spacing-sm);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .platform-name {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--color-text-primary);
+    }
+
+    .checkbox {
+      width: 20px;
+      height: 20px;
+      border-radius: 4px;
+      border: 2px solid var(--color-border);
+      background-color: var(--color-surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all var(--duration-fast) ease;
+    }
+
+    .platform-card.selected .checkbox {
+      background-color: var(--color-teal-base);
+      border-color: var(--color-teal-base);
+    }
+
+    .checkbox-icon {
+      width: 14px;
+      height: 14px;
+      stroke: white;
+      stroke-width: 3;
+      fill: none;
+      opacity: 0;
+      transition: opacity var(--duration-fast) ease;
+    }
+
+    .platform-card.selected .checkbox-icon {
+      opacity: 1;
+    }
+
+    .btn-publish {
+      width: 100%;
+      margin-top: var(--spacing-md);
+      background-color: var(--color-teal-base);
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color var(--duration-fast) ease;
+    }
+
+    .btn-publish:hover {
+      background-color: var(--color-teal-dark);
+    }
+
+    .btn-show-platforms {
+      position: absolute;
+      right: var(--spacing-sm);
+      top: var(--spacing-sm);
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 6px;
+      padding: 8px var(--spacing-sm);
+      font-size: 14px;
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .btn-show-platforms:hover {
+      color: var(--color-text-primary);
+      border-color: var(--color-text-secondary);
+    }
+
+    /* Component Library */
+    .component-examples {
+      display: grid;
+      gap: var(--spacing-lg);
+    }
+
+    .button-group {
+      display: flex;
+      gap: var(--spacing-sm);
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all var(--duration-fast) ease;
+    }
+
+    .btn-primary {
+      background-color: var(--color-teal-base);
+      color: white;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--color-teal-dark);
+    }
+
+    .btn-secondary {
+      background-color: var(--color-surface);
+      color: var(--color-teal-base);
+      border: 2px solid var(--color-teal-base);
+    }
+
+    .btn-secondary:hover {
+      background-color: rgba(20, 184, 166, 0.05);
+    }
+
+    .btn-ghost {
+      background-color: rgba(20, 184, 166, 0.1);
+      color: var(--color-teal-base);
+      border: none;
+    }
+
+    .btn-ghost:hover {
+      background-color: rgba(20, 184, 166, 0.2);
+    }
+
+    .card {
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      padding: var(--spacing-md);
+    }
+
+    .card h4 {
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: var(--spacing-sm);
+    }
+
+    /* Design Principles */
+    .principles-grid {
+      display: grid;
+      gap: var(--spacing-md);
+    }
+
+    .principle-card {
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      padding: var(--spacing-md);
+    }
+
+    .principle-title {
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--color-text-primary);
+      margin-bottom: 8px;
+    }
+
+    .principle-description {
+      font-size: 16px;
+      color: var(--color-text-secondary);
+      line-height: 1.5;
+    }
+
+    .demo-instruction {
+      font-size: 16px;
+      color: var(--color-text-secondary);
+      margin-bottom: var(--spacing-md);
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <h1>Writestream Design System</h1>
+      <p>A sanctuary for thinking, a command center for distribution</p>
+    </div>
+
+    <!-- Color Palette -->
+    <section class="section">
+      <h2>Color Palette</h2>
+      
+      <h3>Neutrals</h3>
+      <div class="color-grid">
+        <div class="color-item">
+          <div class="color-swatch" style="background-color: #FAFBFC;"></div>
+          <div class="color-name">Background</div>
+          <div class="color-value">#FAFBFC</div>
+        </div>
+        <div class="color-item">
+          <div class="color-swatch" style="background-color: #FFFFFF;"></div>
+          <div class="color-name">Surface</div>
+          <div class="color-value">#FFFFFF</div>
+        </div>
+        <div class="color-item">
+          <div class="color-swatch" style="background-color: #E4E7EB;"></div>
+          <div class="color-name">Border</div>
+          <div class="color-value">#E4E7EB</div>
+        </div>
+        <div class="color-item">
+          <div class="color-swatch" style="background-color: #6B7280;"></div>
+          <div class="color-name">Text Secondary</div>
+          <div class="color-value">#6B7280</div>
+        </div>
+        <div class="color-item">
+          <div class="color-swatch" style="background-color: #1F2937;"></div>
+          <div class="color-name">Text Primary</div>
+          <div class="color-value">#1F2937</div>
+        </div>
+      </div>
+
+      <h3>Primary (Teal)</h3>
+      <div class="color-grid">
+        <div class="color-item">
+          <div class="color-swatch" style="background-color: #5EEAD4;"></div>
+          <div class="color-name">Light</div>
+          <div class="color-value">#5EEAD4</div>
+        </div>
+        <div class="color-item">
+          <div class="color-swatch" style="background-color: #14B8A6;"></div>
+          <div class="color-name">Base</div>
+          <div class="color-value">#14B8A6</div>
+        </div>
+        <div class="color-item">
+          <div class="color-swatch" style="background-color: #0F766E;"></div>
+          <div class="color-name">Dark</div>
+          <div class="color-value">#0F766E</div>
+        </div>
+      </div>
+
+      <h3>Semantic</h3>
+      <div class="color-grid">
+        <div class="color-item">
+          <div class="color-swatch" style="background-color: #10B981;"></div>
+          <div class="color-name">Success</div>
+          <div class="color-value">#10B981</div>
+        </div>
+        <div class="color-item">
+          <div class="color-swatch" style="background-color: #F59E0B;"></div>
+          <div class="color-name">Warning</div>
+          <div class="color-value">#F59E0B</div>
+        </div>
+        <div class="color-item">
+          <div class="color-swatch" style="background-color: #EF4444;"></div>
+          <div class="color-name">Error</div>
+          <div class="color-value">#EF4444</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Typography -->
+    <section class="section">
+      <h2>Typography</h2>
+      <h3>Type Scale</h3>
+      <div class="type-showcase">
+        <div class="type-item">
+          <div style="font-size: 48px; font-weight: 600; line-height: 1.2; color: #1F2937;">Display (48px)</div>
+          <div class="type-meta">Semibold • Inter • Landing pages</div>
+        </div>
+        <div class="type-item">
+          <div style="font-size: 38px; font-weight: 600; line-height: 1.2; color: #1F2937;">H1 (38px)</div>
+          <div class="type-meta">Semibold • Inter • Page titles</div>
+        </div>
+        <div class="type-item">
+          <div style="font-size: 30px; font-weight: 500; line-height: 1.2; color: #1F2937;">H2 (30px)</div>
+          <div class="type-meta">Medium • Inter • Section headers</div>
+        </div>
+        <div class="type-item">
+          <div style="font-size: 24px; font-weight: 500; line-height: 1.2; color: #1F2937;">H3 (24px)</div>
+          <div class="type-meta">Medium • Inter • Card titles</div>
+        </div>
+        <div class="type-item">
+          <div style="font-size: 20px; font-weight: 500; line-height: 1.2; color: #1F2937;">H4 (20px)</div>
+          <div class="type-meta">Medium • Inter • Subsections</div>
+        </div>
+        <div class="type-item">
+          <div style="font-size: 16px; line-height: 1.75; color: #1F2937; font-family: Georgia, 'Iowan Old Style', serif;">
+            Body (16px) - The quick brown fox jumps over the lazy dog. This is the primary reading text used in the editor for comfortable, long-form writing.
+          </div>
+          <div class="type-meta">Regular • Georgia • Editor text</div>
+        </div>
+        <div class="type-item">
+          <div style="font-size: 14px; line-height: 1.5; color: #6B7280;">Small (14px) - Captions and metadata</div>
+          <div class="type-meta">Regular • Inter • UI elements</div>
+        </div>
+        <div class="type-item">
+          <div style="font-size: 12px; line-height: 1.5; color: #6B7280;">Tiny (12px) - Labels and timestamps</div>
+          <div class="type-meta">Regular • Inter • Fine print</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Spacing -->
+    <section class="section">
+      <h2>Spacing System (8px Grid)</h2>
+      <div class="spacing-grid">
+        <div class="spacing-card">
+          <div class="spacing-name">XXS</div>
+          <div class="spacing-value">4px</div>
+          <div class="spacing-use">Icon padding, tight spacing</div>
+        </div>
+        <div class="spacing-card">
+          <div class="spacing-name">XS</div>
+          <div class="spacing-value">8px</div>
+          <div class="spacing-use">Small gaps, button padding</div>
+        </div>
+        <div class="spacing-card">
+          <div class="spacing-name">SM</div>
+          <div class="spacing-value">16px</div>
+          <div class="spacing-use">Card padding, element spacing</div>
+        </div>
+        <div class="spacing-card">
+          <div class="spacing-name">MD</div>
+          <div class="spacing-value">24px</div>
+          <div class="spacing-use">Section spacing</div>
+        </div>
+        <div class="spacing-card">
+          <div class="spacing-name">LG</div>
+          <div class="spacing-value">32px</div>
+          <div class="spacing-use">Large component gaps</div>
+        </div>
+        <div class="spacing-card">
+          <div class="spacing-name">XL</div>
+          <div class="spacing-value">48px</div>
+          <div class="spacing-use">Page sections</div>
+        </div>
+        <div class="spacing-card">
+          <div class="spacing-name">XXL</div>
+          <div class="spacing-value">64px</div>
+          <div class="spacing-use">Major sections</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Demo -->
+    <section class="section">
+      <h2>Interactive Demo</h2>
+      <p class="demo-instruction">
+        Click "Post" to see the transition from creation to distribution mode. Click in the editor to minimize the sidebar.
+      </p>
+
+      <div class="demo-container">
+        <!-- Top Navigation -->
+        <div class="demo-nav">
+          <div class="demo-logo">Writestream</div>
+          <button class="btn-post" id="postButton">Post</button>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="demo-content">
+          <!-- Editor -->
+          <div class="editor" id="editor">
+            <div class="editor-text">
+              <h1 class="editor-title">The Art of Focused Writing</h1>
+              <p class="editor-paragraph">
+                In a world filled with distractions, finding space to think deeply has become a rare luxury. The best writing doesn't emerge from chaos—it grows in sanctuaries of focus, where ideas can breathe and develop naturally.
+              </p>
+              <p class="editor-paragraph">
+                This is why the environment matters. When you sit down to write, the interface should disappear. No notifications, no metrics, no pressure. Just you and your thoughts, flowing onto the page.
+              </p>
+              <p class="editor-paragraph">
+                But once those thoughts are ready to meet the world, you need a different kind of power—the ability to shape your message for each audience, to see at a glance where it will land best, to distribute with confidence.
+              </p>
+            </div>
+          </div>
+
+          <!-- Distribution Sidebar -->
+          <div class="sidebar" id="sidebar">
+            <div class="sidebar-content">
+              <div class="sidebar-header">
+                <h3 class="sidebar-title">Choose Platforms</h3>
+                <button class="btn-minimize" id="minimizeButton">Minimize</button>
+              </div>
+
+              <div class="platform-grid">
+                <div class="platform-card" data-platform="linkedin">
+                  <div class="platform-preview">
+                    Professional networks love detailed insights...
+                  </div>
+                  <div class="platform-info">
+                    <div class="platform-name">LinkedIn</div>
+                    <div class="checkbox">
+                      <svg class="checkbox-icon" viewBox="0 0 24 24">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="platform-card" data-platform="twitter">
+                  <div class="platform-preview">
+                    Quick thoughts work best here. Keep it...
+                  </div>
+                  <div class="platform-info">
+                    <div class="platform-name">Twitter/X</div>
+                    <div class="checkbox">
+                      <svg class="checkbox-icon" viewBox="0 0 24 24">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="platform-card" data-platform="instagram">
+                  <div class="platform-preview">
+                    Visual storytelling with compelling...
+                  </div>
+                  <div class="platform-info">
+                    <div class="platform-name">Instagram</div>
+                    <div class="checkbox">
+                      <svg class="checkbox-icon" viewBox="0 0 24 24">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="platform-card" data-platform="facebook">
+                  <div class="platform-preview">
+                    Community-focused content performs...
+                  </div>
+                  <div class="platform-info">
+                    <div class="platform-name">Facebook</div>
+                    <div class="checkbox">
+                      <svg class="checkbox-icon" viewBox="0 0 24 24">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <button class="btn-publish" id="publishButton" style="display: none;">
+                Publish to <span id="platformCount">0</span> Platform<span id="platformPlural"></span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Show Platforms Button (when minimized) -->
+          <button class="btn-show-platforms" id="showPlatformsButton" style="display: none;">
+            Show Platforms
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Component Library -->
+    <section class="section">
+      <h2>Component Library</h2>
+      
+      <div class="component-examples">
+        <div>
+          <h3>Buttons</h3>
+          <div class="button-group">
+            <button class="btn btn-primary">Primary</button>
+            <button class="btn btn-secondary">Secondary</button>
+            <button class="btn btn-ghost">Ghost</button>
+          </div>
+        </div>
+
+        <div>
+          <h3>Cards</h3>
+          <div class="card-grid">
+            <div class="card">
+              <h4>Card Title</h4>
+              <p>Card content with supporting text that explains the purpose of this component.</p>
+            </div

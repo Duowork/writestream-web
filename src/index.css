@@ -1,0 +1,506 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap");
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* ============================================
+   WRITESTREAM - TAILWIND V4 + SHADCN THEME
+   Based on Light & Airy + Teal Design System
+ ============================================ */
+
+@font-face {
+  font-family: "iA Writer Quattro";
+  src: url("/fonts/iAWriterQuattro-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "iA Writer Quattro";
+  src: url("/fonts/iAWriterQuattro-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@theme {
+  /* ==========================================
+     SHADCN COLOR VARIABLES (HSL Format)
+     ========================================== */
+
+  /* Light Mode */
+  --color-background: hsl(210 20% 98%); /* #FAFBFC */
+  --color-foreground: hsl(215 25% 17%); /* #1F2937 */
+
+  --color-card: hsl(0 0% 100%); /* #FFFFFF */
+  --color-card-foreground: hsl(215 25% 17%); /* #1F2937 */
+
+  --color-popover: hsl(0 0% 100%); /* #FFFFFF */
+  --color-popover-foreground: hsl(215 25% 17%); /* #1F2937 */
+
+  --color-primary: hsl(173 80% 40%); /* #14B8A6 - Teal Base */
+  --color-primary-foreground: hsl(0 0% 100%); /* White text on teal */
+
+  --color-secondary: hsl(215 16% 47%); /* #6B7280 - Gray */
+  --color-secondary-foreground: hsl(0 0% 100%);
+
+  --color-muted: hsl(210 20% 98%); /* #FAFBFC */
+  --color-muted-foreground: hsl(215 16% 47%); /* #6B7280 */
+
+  --color-accent: hsl(173 77% 67%); /* #5EEAD4 - Teal Light */
+  --color-accent-foreground: hsl(215 25% 17%); /* #1F2937 */
+
+  --color-destructive: hsl(0 84% 60%); /* Red */
+  --color-destructive-foreground: hsl(0 0% 100%);
+
+  --color-border: hsl(214 13% 91%); /* #E4E7EB */
+  --color-input: hsl(214 13% 91%); /* #E4E7EB */
+  --color-ring: hsl(173 80% 40%); /* #14B8A6 - Teal */
+
+  --radius: 0.5rem;
+
+  /* ==========================================
+     WRITESTREAM CUSTOM COLORS
+     ========================================== */
+
+  /* Neutrals */
+  --color-background-base: #fafbfc;
+  --color-surface: #ffffff;
+  --color-border-base: #e4e7eb;
+  --color-text-secondary: #6b7280;
+  --color-text-primary: #1f2937;
+
+  /* Teal Palette */
+  --color-teal-light: #5eead4;
+  --color-teal-base: #14b8a6;
+  --color-teal-dark: #0f766e;
+
+  /* Semantic Colors */
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+
+  /* Post Button States */
+  --color-post-ghosted: rgba(20, 184, 166, 0.4);
+  --color-post-active: #14b8a6;
+  --color-post-hover: #0f766e;
+
+  /* Platform Card States */
+  --color-platform-selected-bg: #f0fdfa;
+  --color-platform-selected-border: #14b8a6;
+
+  /* ==========================================
+     TYPOGRAPHY
+     ========================================== */
+
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  --font-serif: "iA Writer Quattro", "Georgia", "Iowan Old Style", serif;
+  --font-mono: "JetBrains Mono", "SF Mono", monospace;
+
+  /* Font Sizes (1.25 ratio) */
+  --font-size-tiny: 0.75rem; /* 12px */
+  --font-size-small: 0.875rem; /* 14px */
+  --font-size-base: 1rem; /* 16px */
+  --font-size-h4: 1.25rem; /* 20px */
+  --font-size-h3: 1.5rem; /* 24px */
+  --font-size-h2: 1.875rem; /* 30px */
+  --font-size-h1: 2.375rem; /* 38px */
+  --font-size-display: 3rem; /* 48px */
+
+  /* Font Weights */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+
+  /* Line Heights */
+  --line-height-tight: 1.2;
+  --line-height-ui: 1.5;
+  --line-height-relaxed: 1.75;
+
+  /* ==========================================
+     SPACING (8px Grid)
+     ========================================== */
+
+  --spacing-xxs: 0.25rem; /* 4px */
+  --spacing-xs: 0.5rem; /* 8px */
+  --spacing-sm: 1rem; /* 16px */
+  --spacing-md: 1.5rem; /* 24px */
+  --spacing-lg: 2rem; /* 32px */
+  --spacing-xl: 3rem; /* 48px */
+  --spacing-xxl: 4rem; /* 64px */
+
+  /* ==========================================
+     BORDER RADIUS
+     ========================================== */
+
+  --radius-sm: 0.25rem; /* 4px */
+  --radius-md: 0.5rem; /* 8px */
+  --radius-lg: 0.75rem; /* 12px */
+  --radius-xl: 1rem; /* 16px */
+  --radius-full: 9999px;
+
+  /* ==========================================
+     SHADOWS
+     ========================================== */
+
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+    0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1),
+    0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+  /* Writestream Specific Shadows */
+  --shadow-card-hover: 0 8px 16px rgb(0 0 0 / 0.08);
+  --shadow-platform-selected: 0 0 0 3px rgb(20 184 166 / 0.1);
+
+  /* ==========================================
+     ANIMATION
+     ========================================== */
+
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-decelerate: cubic-bezier(0, 0, 0.2, 1);
+  --ease-sharp: cubic-bezier(0.4, 0, 0.6, 1);
+
+  /* Durations */
+  --duration-fast: 150ms;
+  --duration-base: 200ms;
+  --duration-slow: 300ms;
+  --duration-mode-transition: 350ms; /* For sanctuary → distribution */
+
+  /* ==========================================
+     LAYOUT
+     ========================================== */
+
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1280px;
+
+  --editor-max-width: 720px;
+  --sidebar-width: 380px;
+
+  /* ==========================================
+     Z-INDEX
+     ========================================== */
+
+  --z-base: 0;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-fixed: 300;
+  --z-modal-backdrop: 400;
+  --z-modal: 500;
+  --z-popover: 600;
+  --z-tooltip: 700;
+}
+
+/* ==========================================
+   DARK MODE (Optional - Not in original design)
+   ========================================== */
+
+@media (prefers-color-scheme: dark) {
+  @theme {
+    --color-background: hsl(215 28% 17%); /* Dark background */
+    --color-foreground: hsl(210 20% 98%); /* Light text */
+
+    --color-card: hsl(215 25% 20%);
+    --color-card-foreground: hsl(210 20% 98%);
+
+    --color-popover: hsl(215 25% 20%);
+    --color-popover-foreground: hsl(210 20% 98%);
+
+    --color-primary: hsl(173 80% 40%); /* Teal stays same */
+    --color-primary-foreground: hsl(0 0% 100%);
+
+    --color-secondary: hsl(215 20% 35%);
+    --color-secondary-foreground: hsl(210 20% 98%);
+
+    --color-muted: hsl(215 25% 20%);
+    --color-muted-foreground: hsl(215 16% 65%);
+
+    --color-accent: hsl(173 77% 67%);
+    --color-accent-foreground: hsl(215 25% 17%);
+
+    --color-border: hsl(215 20% 30%);
+    --color-input: hsl(215 20% 30%);
+    --color-ring: hsl(173 80% 40%);
+
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.4);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.5),
+      0 2px 4px -2px rgb(0 0 0 / 0.5);
+  }
+}
+
+.dark {
+  --color-background: hsl(215 28% 17%);
+  --color-foreground: hsl(210 20% 98%);
+  --color-card: hsl(215 25% 20%);
+  --color-card-foreground: hsl(210 20% 98%);
+  --color-popover: hsl(215 25% 20%);
+  --color-popover-foreground: hsl(210 20% 98%);
+  --color-primary: hsl(173 80% 40%);
+  --color-primary-foreground: hsl(0 0% 100%);
+  --color-secondary: hsl(215 20% 35%);
+  --color-secondary-foreground: hsl(210 20% 98%);
+  --color-muted: hsl(215 25% 20%);
+  --color-muted-foreground: hsl(215 16% 65%);
+  --color-accent: hsl(173 77% 67%);
+  --color-accent-foreground: hsl(215 25% 17%);
+  --color-border: hsl(215 20% 30%);
+  --color-input: hsl(215 20% 30%);
+  --color-ring: hsl(173 80% 40%);
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.4);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.5), 0 2px 4px -2px rgb(0 0 0 / 0.5);
+}
+
+/* ==========================================
+   BASE STYLES
+   ========================================== */
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-sans);
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+/* ==========================================
+   WRITESTREAM COMPONENTS
+   ========================================== */
+
+@layer components {
+  /* Post Button (Top Right) */
+  .btn-post-ghosted {
+    @apply inline-flex items-center justify-center gap-2 rounded-md px-6 py-2 text-sm font-medium transition-all;
+    background-color: var(--color-post-ghosted);
+    color: var(--color-teal-base);
+    transition-duration: var(--duration-mode-transition);
+    transition-timing-function: var(--ease-standard);
+  }
+
+  .btn-post-active {
+    @apply inline-flex items-center justify-center gap-2 rounded-md px-6 py-2 text-sm font-medium transition-all;
+    background-color: var(--color-post-active);
+    color: white;
+    transition-duration: var(--duration-mode-transition);
+    transition-timing-function: var(--ease-standard);
+  }
+
+  .btn-post-active:hover {
+    background-color: var(--color-post-hover);
+  }
+
+  /* Editor Container (Centered, Spacious) */
+  .editor-container {
+    @apply mx-auto px-8 py-12;
+    max-width: var(--editor-max-width);
+    font-family: var(--font-serif);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-relaxed);
+    color: var(--color-text-primary);
+    background-color: var(--color-background-base);
+  }
+
+  .editor-container:focus {
+    @apply outline-none;
+  }
+
+  /* Distribution Sidebar */
+  .distribution-sidebar {
+    @apply border-l flex flex-col overflow-hidden transition-all;
+    width: var(--sidebar-width);
+    background-color: var(--color-surface);
+    border-color: var(--color-border-base);
+    transition-duration: var(--duration-mode-transition);
+    transition-timing-function: var(--ease-standard);
+  }
+
+  .distribution-sidebar.minimized {
+    width: 0;
+    border: none;
+  }
+
+  /* Platform Card with Preview */
+  .platform-card {
+    @apply relative cursor-pointer rounded-lg border-2 overflow-hidden transition-all;
+    background-color: var(--color-surface);
+    border-color: var(--color-border-base);
+    transition-duration: var(--duration-base);
+  }
+
+  .platform-card:hover {
+    border-color: var(--color-text-secondary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card-hover);
+  }
+
+  .platform-card.selected {
+    border-color: var(--color-platform-selected-border);
+    background-color: var(--color-platform-selected-bg);
+    box-shadow: var(--shadow-platform-selected);
+  }
+
+  /* Platform Preview Area */
+  .platform-preview {
+    @apply border-b px-4 py-4;
+    background-color: var(--color-background-base);
+    border-color: var(--color-border-base);
+    font-family: var(--font-serif);
+    font-size: var(--font-size-small);
+    color: var(--color-text-secondary);
+    line-height: var(--line-height-ui);
+  }
+
+  /* Checkbox Overlay */
+  .checkbox-overlay {
+    @apply flex items-center justify-center rounded transition-all;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--color-border-base);
+    background-color: var(--color-surface);
+    transition-duration: var(--duration-base);
+  }
+
+  .checkbox-overlay.checked {
+    background-color: var(--color-teal-base);
+    border-color: var(--color-teal-base);
+  }
+
+  /* Standard Buttons */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-md px-6 py-3 text-base font-medium transition-all;
+    background-color: var(--color-teal-base);
+    color: white;
+  }
+
+  .btn-primary:hover {
+    background-color: var(--color-teal-dark);
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-md border-2 px-6 py-3 text-base font-medium transition-all;
+    border-color: var(--color-border-base);
+    color: var(--color-text-primary);
+    background-color: transparent;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--color-text-secondary);
+    background-color: var(--color-background-base);
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-md px-6 py-3 text-base font-medium transition-all;
+    color: var(--color-text-secondary);
+    background-color: transparent;
+  }
+
+  .btn-ghost:hover {
+    background-color: var(--color-background-base);
+  }
+
+  /* Card */
+  .card {
+    @apply rounded-lg border p-6 transition-all;
+    background-color: var(--color-surface);
+    border-color: var(--color-border-base);
+  }
+
+  /* Input */
+  .input {
+    @apply rounded-md border px-3.5 py-2.5 text-base transition-all;
+    background-color: var(--color-surface);
+    border-color: var(--color-border-base);
+    color: var(--color-text-primary);
+  }
+
+  .input:focus {
+    @apply outline-none;
+    border-color: var(--color-teal-base);
+    box-shadow: 0 0 0 3px rgb(20 184 166 / 0.1);
+  }
+
+  .input::placeholder {
+    color: var(--color-text-secondary);
+  }
+}
+
+/* ==========================================
+   ANIMATIONS
+   ========================================== */
+
+@layer utilities {
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fadeIn var(--duration-slow) var(--ease-decelerate);
+  }
+
+  .animate-slide-in {
+    animation: slideIn var(--duration-mode-transition) var(--ease-standard);
+  }
+
+  .animate-slide-up {
+    animation: slideUp var(--duration-base) var(--ease-standard);
+  }
+}
+
+/* ==========================================
+   ACCESSIBILITY
+   ========================================== */
+
+@layer utilities {
+  .focus-ring:focus-visible {
+    @apply outline-none ring-2 ring-offset-2;
+    ring-color: var(--color-teal-base);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  .sr-only {
+    @apply absolute h-px w-px overflow-hidden whitespace-nowrap border-0 p-0;
+    clip: rect(0, 0, 0, 0);
+    margin: -1px;
+  }
+}
