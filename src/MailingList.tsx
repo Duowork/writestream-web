@@ -37,8 +37,8 @@ export function HeroSignupCTA() {
                 </div>
 
                 {status === 'success' ? (
-                    <div className="bg-success border border-success/50 rounded-xl p-6 text-center animate-fade-in">
-                        <div className="w-12 h-12 bg-success/50 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <div className="bg-teal-500 border border-teal-500/50 rounded-xl p-6 text-center animate-fade-in">
+                        <div className="w-12 h-12 bg-teal-500/50 rounded-full flex items-center justify-center mx-auto mb-4">
                             <Send className="text-white w-6 h-6" />
                         </div>
                         <h3 className="text-xl font-medium text-white mb-2">You're on the list!</h3>
