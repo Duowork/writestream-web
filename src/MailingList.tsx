@@ -4,6 +4,41 @@ import { toast } from 'sonner';
 
 /* ------------------------------------------------ */
 
+const triggerSubscriptionEndpoint = async (email: string) => {
+
+    const subscriptionResponse = { isSuccess: false, status: 400, message: "", data: {} }
+
+    try {
+        const response = await fetch('/.netlify/functions/subscribe', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            subscriptionResponse.isSuccess = true;
+            subscriptionResponse.status = response.status
+            subscriptionResponse.message = "Thanks for subscribing!"
+            subscriptionResponse.data = data
+        } else {
+            subscriptionResponse.isSuccess = false;
+            subscriptionResponse.status = response.status
+            subscriptionResponse.message = "Something went wrong! Try again later"
+            subscriptionResponse.data = data
+        }
+    } catch (error) {
+        subscriptionResponse.isSuccess = false;
+        subscriptionResponse.status = 400
+        subscriptionResponse.message = "Failed to subscribe. Please try again."
+    }
+
+    return subscriptionResponse
+};
+
 export function HeroSignupCTA() {
     const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
     const [name, setName] = useState('');
@@ -12,11 +47,18 @@ export function HeroSignupCTA() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setStatus('loading');
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        setStatus('success');
-        setName('');
-        setEmail('');
+
+
+        const response = await triggerSubscriptionEndpoint(email);
+
+        if (response.isSuccess) {
+            setStatus('success');
+            setName('');
+            setEmail('');
+        } else {
+            setStatus('error');
+            toast.error(response.message);
+        }
     };
 
     return (
@@ -134,15 +176,22 @@ export function SignupCTA() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        toast.success('You have been added to the waitlist!', {
-            position: "top-center",
-            style: {
-                backgroundColor: "#10B981",
-                color: "#fff", "borderRadius": "none !important"
-            }
-        })
+        const response = await triggerSubscriptionEndpoint(email);
+
+        if (response.isSuccess) {
+            toast.success('You have been added to the waitlist!', {
+                position: "top-center",
+                style: {
+                    backgroundColor: "#10B981",
+                    color: "#fff", "border": "none !important"
+                }
+            })
+
+            setName('');
+            setEmail('');
+        } else {
+            toast.error(response.message);
+        }
     }
 
     return (
