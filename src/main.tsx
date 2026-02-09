@@ -5,13 +5,17 @@ import App from './App.tsx'
 import { Toaster } from 'sonner'
 import { RoofProvider } from 'react-roof'
 
+import { BrowserRouter } from 'react-router-dom'
+
 /* -------------------------------------------- */
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <RoofProvider>
-      <App />
-      <Toaster />
+      <BrowserRouter>
+        <App />
+        <Toaster />
+      </BrowserRouter>
     </RoofProvider>
   </StrictMode>,
 )

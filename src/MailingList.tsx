@@ -1,39 +1,24 @@
 import { useState } from 'react';
 import { Send, User, Mail } from 'lucide-react';
 import { toast } from 'sonner';
+import { subscribeToMailingList } from './services/mailing-list-service';
 
 /* ------------------------------------------------ */
 
 const triggerSubscriptionEndpoint = async (email: string) => {
-
     const subscriptionResponse = { isSuccess: false, status: 400, message: "", data: {} }
 
     try {
-        const response = await fetch('/.netlify/functions/subscribe', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email }),
-        });
+        const result = await subscribeToMailingList(email);
 
-        const data = await response.json();
-
-        if (response.ok) {
-            subscriptionResponse.isSuccess = true;
-            subscriptionResponse.status = response.status
-            subscriptionResponse.message = "Thanks for subscribing!"
-            subscriptionResponse.data = data
-        } else {
-            subscriptionResponse.isSuccess = false;
-            subscriptionResponse.status = response.status
-            subscriptionResponse.message = "Something went wrong! Try again later"
-            subscriptionResponse.data = data
-        }
-    } catch (error) {
+        subscriptionResponse.isSuccess = true;
+        subscriptionResponse.status = 200;
+        subscriptionResponse.message = "Thanks for subscribing!";
+        subscriptionResponse.data = result?.data;
+    } catch (error: any) {
         subscriptionResponse.isSuccess = false;
-        subscriptionResponse.status = 400
-        subscriptionResponse.message = "Failed to subscribe. Please try again."
+        subscriptionResponse.status = 400;
+        subscriptionResponse.message = error.message || "Failed to subscribe. Please try again.";
     }
 
     return subscriptionResponse

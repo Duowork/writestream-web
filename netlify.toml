@@ -1,9 +1,0 @@
-[build]
-  command = "npm run build"
-  publish = "build"  # or "dist" depending on your React setup
-  functions = "netlify/functions"
-
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
