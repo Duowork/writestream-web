@@ -37,7 +37,6 @@ export async function subscribeToMailingList(email: string) {
         }
     } catch (error: any) {
         console.error("Subscription error:", error.message);
-        toast.error(error.message || "Failed to subscribe. Please try again.");
         throw error;
     }
 }
