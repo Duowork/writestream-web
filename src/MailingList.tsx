@@ -11,10 +11,12 @@ const triggerSubscriptionEndpoint = async (email: string) => {
     try {
         const result = await subscribeToMailingList(email);
 
-        subscriptionResponse.isSuccess = true;
-        subscriptionResponse.status = 200;
-        subscriptionResponse.message = "Thanks for subscribing!";
-        subscriptionResponse.data = result?.data;
+        if (result && result.success) {
+            subscriptionResponse.isSuccess = true;
+            subscriptionResponse.status = 200;
+            subscriptionResponse.message = "Thanks for subscribing!";
+            subscriptionResponse.data = result?.data;
+        }
     } catch (error: any) {
         subscriptionResponse.isSuccess = false;
         subscriptionResponse.status = 400;
@@ -33,13 +35,12 @@ export function HeroSignupCTA() {
         e.preventDefault();
         setStatus('loading');
 
-
         const response = await triggerSubscriptionEndpoint(email);
 
         if (response.isSuccess) {
             setStatus('success');
             setName('');
-            setEmail('');
+            setEmail(''); 
         } else {
             setStatus('error');
             toast.error(response.message);
