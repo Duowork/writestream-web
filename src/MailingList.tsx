@@ -15,7 +15,7 @@ const triggerSubscriptionEndpoint = async (email: string) => {
             subscriptionResponse.isSuccess = true;
             subscriptionResponse.status = 200;
             subscriptionResponse.message = "Thanks for subscribing!";
-            subscriptionResponse.data = result?.data;
+            subscriptionResponse.data = result.data;
         }
     } catch (error: any) {
         subscriptionResponse.isSuccess = false;
@@ -43,7 +43,8 @@ export function HeroSignupCTA() {
             setEmail(''); 
         } else {
             setStatus('error');
-            toast.error(response.message);
+            console.log(response.message)
+            toast.error("Failed to subscribe");
         }
     };
 
