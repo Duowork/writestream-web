@@ -5,11 +5,11 @@ import { subscribeToMailingList } from './services/mailing-list-service';
 
 /* ------------------------------------------------ */
 
-const triggerSubscriptionEndpoint = async (email: string) => {
+const triggerSubscriptionEndpoint = async (name: string, email: string) => {
     const subscriptionResponse = { isSuccess: false, status: 400, message: "", data: {} }
 
     try {
-        const result = await subscribeToMailingList(email);
+        const result = await subscribeToMailingList(name, email);
 
         if (result && result.success) {
             subscriptionResponse.isSuccess = true;
@@ -35,12 +35,12 @@ export function HeroSignupCTA() {
         e.preventDefault();
         setStatus('loading');
 
-        const response = await triggerSubscriptionEndpoint(email);
+        const response = await triggerSubscriptionEndpoint(name, email);
 
         if (response.isSuccess) {
             setStatus('success');
             setName('');
-            setEmail(''); 
+            setEmail('');
         } else {
             setStatus('error');
             console.log(response.message)
@@ -163,21 +163,21 @@ export function SignupCTA() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-        const response = await triggerSubscriptionEndpoint(email);
+
+        const response = await triggerSubscriptionEndpoint(name, email);
 
         if (response.isSuccess) {
             toast.success('You have been added to the waitlist!', {
                 position: "top-center",
                 style: {
-                    backgroundColor: "#10B981",
-                    color: "#fff", "border": "none !important"
+                    color: "#14B8A6",
                 }
             })
 
             setName('');
             setEmail('');
         } else {
-            toast.error(response.message);
+            toast.error(response.message, { style: { color: "red" }, position: "top-center" });
         }
     }
 
