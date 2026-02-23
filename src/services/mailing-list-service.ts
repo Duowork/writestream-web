@@ -10,7 +10,7 @@ export async function subscribeToMailingList(name: string, email: string) {
     }
 
     if (!email || !email.includes("@")) {
-        throw Error("Invalid email address");
+        throw Error("Email is required!");
     }
 
     // Get the base URL from environment variables (e.g., https://your-api.netlify.app)
