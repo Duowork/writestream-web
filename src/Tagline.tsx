@@ -40,7 +40,7 @@ export function Tagline() {
             <LayoutGroup>
                 <motion.h3
                     layout
-                    className="text-2xl sm:text-4xl font-semibold text-white mb-2 flex flex-wrap items-center justify-center gap-x-4 gap-y-4 min-h-[140px] md:min-h-[100px]"
+                    className="w-full max-w-[540px] text-2xl sm:text-3xl font-semibold text-white mb-2 flex flex-wrap items-center justify-center gap-3 min-h-[140px] md:min-h-[100px]"
                     style={{ fontFamily: 'Inter, sans-serif', letterSpacing: '-0.02em' }}
                 >
                     <motion.span
@@ -64,7 +64,7 @@ export function Tagline() {
                                 transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
                                 className="flex items-center gap-4 py-2"
                             >
-                                <span className="whitespace-nowrap text-white/90">Post on</span>
+                                <span className="whitespace-nowrap text-white/90">Publish on</span>
 
                                 <div className="relative w-16 h-16 md:w-20 md:h-20 flex items-center justify-center overflow-hidden">
                                     <AnimatePresence mode="wait">
@@ -91,7 +91,7 @@ export function Tagline() {
                                 </div>
                             </motion.div>
                         ) : (
-                            <motion.span
+                            <motion.div
                                 key="final-tagline"
                                 layout
                                 initial={{ y: "100%", opacity: 0 }}
@@ -104,8 +104,8 @@ export function Tagline() {
                                 }}
                                 className="text-white whitespace-nowrap py-2"
                             >
-                                Post Everywhere!
-                            </motion.span>
+                                Publish Everywhere.
+                            </motion.div>
                         )}
                     </AnimatePresence>
                 </motion.h3>
