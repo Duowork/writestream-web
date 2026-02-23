@@ -1,13 +1,16 @@
-import { toast } from "sonner";
-
 /**
  * Mailing List Service - Secure Cross-Origin Client
  */
 
-export async function subscribeToMailingList(email: string) {
+export async function subscribeToMailingList(name: string, email: string) {
+    if (!name)  throw Error("First name is required")
+
+    if (name && name.length < 2) {
+        throw Error("First name must be at least 2 characters long")
+    }
+
     if (!email || !email.includes("@")) {
-        toast.error("Invalid email address");
-        return;
+        throw Error("Invalid email address");
     }
 
     // Get the base URL from environment variables (e.g., https://your-api.netlify.app)
