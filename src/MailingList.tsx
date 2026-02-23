@@ -44,7 +44,7 @@ export function HeroSignupCTA() {
         } else {
             setStatus('error');
             console.log(response.message)
-            toast.error("Failed to subscribe");
+            toast.error("Failed to subscribe!", { position: "top-center", style: { color: "red" } });
         }
     };
 
@@ -70,8 +70,8 @@ export function HeroSignupCTA() {
                         <div className="w-12 h-12 bg-teal-500/50 rounded-full flex items-center justify-center mx-auto mb-4">
                             <Send className="text-white w-6 h-6" />
                         </div>
-                        <h3 className="text-xl font-medium text-white mb-2">You're on the list!</h3>
-                        <p className="text-white/80">We'll reach out to you as soon as we're ready for early access.</p>
+                        <h3 className="text-xl font-medium text-white mb-2">Thank you for subscribing!</h3>
+                        <p className="text-white/80">A confirmation email has been sent to your email address.</p>
                         <button
                             onClick={() => setStatus('idle')}
                             className="mt-6 text-white hover:text-white/80 font-medium transition-colors cursor-pointer"
@@ -90,7 +90,7 @@ export function HeroSignupCTA() {
                                     placeholder="Your name"
                                     value={name}
                                     onChange={(e) => setName(e.target.value)}
-                                    className="w-full bg-white/10 border border-white/20 rounded-xl py-3 pl-11 pr-4 text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-white/30 focus:bg-white/15 transition-all font-sans"
+                                    className="w-full bg-white/10 border border-white/20 rounded-xl py-3 pl-11 pr-4 text-white placeholder:text-gray-300 focus:outline-none focus:ring-2 focus:ring-white/30 focus:bg-white/15 transition-all font-sans"
                                 />
                             </div>
                             <div className="relative">
@@ -101,7 +101,7 @@ export function HeroSignupCTA() {
                                     placeholder="Your email"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
-                                    className="w-full bg-white/10 border border-white/20 rounded-xl py-3 pl-11 pr-4 text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-white/30 focus:bg-white/15 transition-all font-sans"
+                                    className="w-full bg-white/10 border border-white/20 rounded-xl py-3 pl-11 pr-4 text-white placeholder:text-gray-300 focus:outline-none focus:ring-2 focus:ring-white/30 focus:bg-white/15 transition-all font-sans"
                                 />
                             </div>
                         </div>
@@ -163,11 +163,12 @@ export function SignupCTA() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
+        setStatus("loading")
 
         const response = await triggerSubscriptionEndpoint(name, email);
 
         if (response.isSuccess) {
-            toast.success('You have been added to the waitlist!', {
+            toast.success("You've been added! Please check your email for confirmation", {
                 position: "top-center",
                 style: {
                     color: "#14B8A6",
@@ -176,8 +177,10 @@ export function SignupCTA() {
 
             setName('');
             setEmail('');
+            setStatus("success")
         } else {
             toast.error(response.message, { style: { color: "red" }, position: "top-center" });
+            setStatus("error")
         }
     }
 
@@ -197,65 +200,51 @@ export function SignupCTA() {
                     </p>
                 </div>
 
-                {status === 'success' ? (
-                    <div className="bg-teal-500/20 border border-teal-500/50 rounded-xl p-6 text-center animate-fade-in">
-                        <div className="w-12 h-12 bg-teal-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <Send className="text-white w-6 h-6" />
-                        </div>
-                        <h3 className="text-xl font-medium text-white mb-2">You're on the list!</h3>
-                        <p className="text-white/80">We'll reach out to you as soon as we're ready for early access.</p>
-                        <button
-                            onClick={() => setStatus('idle')}
-                            className="mt-6 text-teal-400 hover:text-teal-300 font-medium transition-colors"
-                        >
-                            Add another person
-                        </button>
-                    </div>
-                ) : (
-                    <form onSubmit={handleSubmit} className="space-y-4 relative z-10">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div className="relative">
-                                <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/60" />
-                                <input
-                                    required
-                                    type="text"
-                                    placeholder="Your name"
-                                    value={name}
-                                    onChange={(e) => setName(e.target.value)}
-                                    className="w-full bg-white/10 border border-white/20 rounded-xl py-3 pl-11 pr-4 text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-white/30 focus:bg-white/15 transition-all font-sans"
-                                />
-                            </div>
-                            <div className="relative">
-                                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/60" />
-                                <input
-                                    required
-                                    type="email"
-                                    placeholder="Your email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    className="w-full bg-white/10 border border-white/20 rounded-xl py-3 pl-11 pr-4 text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-white/30 focus:bg-white/15 transition-all font-sans"
-                                />
-                            </div>
-                        </div>
 
-                        <button
-                            disabled={status === 'loading'}
-                            type="submit"
-                            className="w-full h-auto! bg-white hover:bg-white/90 text-primary py-4! rounded-xl relative overflow-hidden group transition-all duration-300 transform hover:scale-[1.01] active:scale-[0.99] cursor-pointer"
-                            onClick={handleSubmit}
-                        >
-                            <span className={`flex items-center font-bold justify-center gap-2 transition-transform duration-300 ${status === 'loading' ? '-translate-y-full opacity-0' : ''}`}>
-                                Get early access
-                                <Send className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                            </span>
-                            {status === 'loading' && (
-                                <div className="absolute inset-0 flex items-center justify-center">
-                                    <div className="w-6 h-6 border-2 border-primary/30 border-t-primary rounded-full animate-spin" />
-                                </div>
-                            )}
-                        </button>
-                    </form>
-                )}
+                <form onSubmit={handleSubmit} className="space-y-4 relative z-10">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="relative">
+                            <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/60" />
+                            <input
+                                required
+                                type="text"
+                                placeholder="Your name"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                                className="w-full bg-white/10 border border-white/20 rounded-xl py-3 pl-11 pr-4 text-white placeholder:text-gray-300 focus:outline-none focus:ring-2 focus:ring-white/30 focus:bg-white/15 transition-all font-sans"
+                            />
+                        </div>
+                        <div className="relative">
+                            <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/60" />
+                            <input
+                                required
+                                type="email"
+                                placeholder="Your email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                className="w-full bg-white/10 border border-white/20 rounded-xl py-3 pl-11 pr-4 text-white placeholder:text-gray-300 focus:outline-none focus:ring-2 focus:ring-white/30 focus:bg-white/15 transition-all font-sans"
+                            />
+                        </div>
+                    </div>
+
+                    <button
+                        disabled={status === 'loading'}
+                        type="submit"
+                        className="w-full h-auto! bg-white hover:bg-white/90 text-primary py-4! rounded-xl relative overflow-hidden group transition-all duration-300 transform hover:scale-[1.01] active:scale-[0.99] cursor-pointer"
+                        onClick={handleSubmit}
+                    >
+                        <span className={`flex items-center font-bold justify-center gap-2 transition-transform duration-300 ${status === 'loading' ? '-translate-y-full opacity-0' : ''}`}>
+                            Get early access
+                            <Send className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                        </span>
+                        {status === 'loading' && (
+                            <div className="absolute inset-0 flex items-center justify-center">
+                                <div className="w-6 h-6 border-2 border-primary/30 border-t-primary rounded-full animate-spin" />
+                            </div>
+                        )}
+                    </button>
+                </form>
+
             </div>
 
             <div className='flex items-center justify-center flex-col gap-4 sm:gap-4'>
