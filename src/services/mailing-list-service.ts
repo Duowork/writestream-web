@@ -24,7 +24,7 @@ export async function subscribeToMailingList(name: string, email: string) {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ email }),
+            body: JSON.stringify({name, email }),
         });
 
         const result = await response.json();
