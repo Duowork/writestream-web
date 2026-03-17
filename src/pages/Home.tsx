@@ -41,7 +41,7 @@ export default function Home() {
                 type='website'
                 url='https://writestream.online'
                 description="Write and publish your content across multiple platforms with ease"
-                image="/images/hero/136508.jpg"
+                image="https://i.postimg.cc/PJnzf76w/Write-Stream-Logo-Mark-colored.png"
             />
 
             <div className="w-full h-auto">
